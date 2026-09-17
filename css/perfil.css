@@ -1,0 +1,164 @@
+/* =========================================
+   perfil.css — Página Perfil — Tema Hololive Justice
+   Paleta: violeta profundo + teal, motivo "grimorio arcano"
+   Fondo: Ina streaming setup
+   ========================================= */
+
+/* Fondo a pantalla completa */
+#perfil {
+  position: relative;
+  min-height: calc(100vh - 68px);
+  background-color: #0a0610;
+  background-image: url('../img/bg-perfil.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Capa oscura semitransparente (tonos violeta para combinar con Ina) */
+#perfil::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 6, 16, 0.78) 0%,
+    rgba(10, 6, 16, 0.82) 50%,
+    rgba(10, 6, 16, 0.88) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.perfil-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 68px);
+  padding: 2rem;
+}
+
+.profile-card {
+  background: var(--ina-bg-card);
+  border: 2px solid rgba(225, 29, 72, 0.4);
+  border-radius: 20px;
+  padding: 2.5rem 2.2rem;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 45px rgba(124, 58, 237, 0.3), 0 0 20px rgba(225, 29, 72, 0.15);
+  position: relative;
+  z-index: 1;
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--ina-accent2), var(--ina-accent3), transparent);
+}
+
+.profile-card::after {
+  content: '✦ ⋆ ✧';
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  color: var(--ina-accent2);
+  opacity: 0.5;
+  font-size: 1rem;
+  letter-spacing: 6px;
+}
+
+.profile-avatar-ring {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(145deg, #e11d48 0%, #7c3aed 50%, #c4b5fd 100%);
+  margin: 0 auto 1.2rem;
+  box-shadow: 0 0 30px rgba(225, 29, 72, 0.4), 0 0 40px rgba(124, 58, 237, 0.3);
+}
+
+.profile-avatar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 45% 40%, #2e1065 0%, #1a0533 65%, #0c0220 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid rgba(13, 148, 136, 0.45);
+}
+
+.profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  display: block;
+}
+
+.profile-name {
+  font-family: var(--font-head);
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+  color: var(--text);
+}
+
+.profile-name span.highlighted {
+  background: linear-gradient(135deg, #e11d48 0%, #7c3aed 100%);
+  color: #fff;
+  padding: 0.15rem 0.55rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.profile-role {
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fda4af;
+  margin-top: 0.4rem;
+  font-weight: 600;
+}
+
+.profile-oshi-tag {
+  display: inline-block;
+  color: var(--ina-accent);
+  font-style: italic;
+  font-size: 0.95rem;
+  margin-bottom: 1.6rem;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ina-accent), transparent);
+  margin: 1.6rem 0;
+}
+
+.profile-bio {
+  color: var(--text-muted);
+  font-size: 1.02rem;
+  line-height: 1.8;
+  text-align: left;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.profile-bio strong {
+  color: var(--ina-accent2);
+}
+
+.profile-back {
+  margin-top: 2rem;
+}
