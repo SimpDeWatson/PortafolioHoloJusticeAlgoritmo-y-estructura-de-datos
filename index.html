@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adrian Alexis Rafael Palomino — Portfolio UPLA · Hololive Justice</title>
+
+  <!-- CSS Global -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- CSS por página -->
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/tareas.css" />
+  <link rel="stylesheet" href="css/perfil.css" />
+  <link rel="stylesheet" href="css/info.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       PANTALLA DE LOGIN (aparece al abrir)
+  ============================================================ -->
+  <div id="login-screen" class="hidden" style="display:none;">
+    <div class="login-card">
+      <div class="login-logo">
+        <svg viewBox="0 0 40 46" xmlns="http://www.w3.org/2000/svg" width="52" height="58">
+          <defs>
+            <linearGradient id="loginHexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#e11d48"/>
+              <stop offset="100%" style="stop-color:#a855f7"/>
+            </linearGradient>
+          </defs>
+          <polygon points="20,1 38,11 38,35 20,45 2,35 2,11"
+                   fill="url(#loginHexGrad)" stroke="#ffffff" stroke-width="1.2"/>
+          <path d="M15.2,30 Q16,22 20,18 Q20.8,23.2 23.2,20 Q26,15.2 20,12
+                   Q19.2,16.8 16.8,19.2 Q14.4,21.6 15.2,30Z"
+                fill="#f1e9ff" opacity="0.9"/>
+          <path d="M20,30 Q20.8,24 22.4,20.8 Q24.8,16 20.8,12.8
+                   Q21.2,19.2 19.2,22.4 Q17.6,25.2 20,30Z"
+                fill="#f1e9ff" opacity="0.6"/>
+        </svg>
+      </div>
+      <h1 class="login-title">Portafolio UPLA</h1>
+      <p class="login-sub">Hololive Justice · Taller de Desarrollo de Aplicaciones</p>
+
+      <!-- Botones iniciales -->
+      <div id="login-buttons" class="login-buttons">
+        <button class="btn-login-primary" onclick="toggleLoginForm(true)">
+          🔐 Iniciar sesión
+        </button>
+        <button class="btn-login-ghost" onclick="hideLoginScreen()">
+          ← Volver
+        </button>
+      </div>
+
+      <!-- Formulario de login (oculto al inicio) -->
+      <div id="login-form" class="login-form" style="display:none;">
+        <input type="text" id="login-user" placeholder="Usuario" autocomplete="username" />
+        <input type="password" id="login-pass" placeholder="Contraseña" autocomplete="current-password" />
+        <p id="login-error" class="login-error" style="display:none;"></p>
+        <div class="login-form-actions">
+          <button class="btn-login-primary" onclick="tryLogin()">Entrar</button>
+          <button class="btn-login-ghost" onclick="toggleLoginForm(false)">← Volver</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav>
+    <a class="nav-brand" href="#" onclick="showPage('home', document.querySelector('[data-page=home]'))">
+      <svg class="nav-logo-hex" viewBox="0 0 40 46" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="navHexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#e11d48"/>
+            <stop offset="100%" style="stop-color:#a855f7"/>
+          </linearGradient>
+        </defs>
+        <polygon points="20,1 38,11 38,35 20,45 2,35 2,11"
+                 fill="url(#navHexGrad)" stroke="#ffffff" stroke-width="1.2"/>
+        <path d="M15.2,30 Q16,22 20,18 Q20.8,23.2 23.2,20 Q26,15.2 20,12
+                 Q19.2,16.8 16.8,19.2 Q14.4,21.6 15.2,30Z"
+              fill="#f1e9ff" opacity="0.9"/>
+        <path d="M20,30 Q20.8,24 22.4,20.8 Q24.8,16 20.8,12.8
+                 Q21.2,19.2 19.2,22.4 Q17.6,25.2 20,30Z"
+              fill="#f1e9ff" opacity="0.6"/>
+      </svg>
+      Adrian Alexis
+      <span id="hololive-badge" class="hololive-badge" style="display:none;" title="Hololive">
+        <svg viewBox="0 0 48 48" width="24" height="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Capa inferior (azul) -->
+          <path d="M6 6 L42 24 L6 42 Z" fill="#3b9eff"/>
+          <!-- Capa media -->
+          <path d="M9 10.5 L36 24 L9 37.5 Z" fill="#5eb8ff"/>
+          <!-- Capa superior (cyan) -->
+          <path d="M12.5 14.5 L30.5 24 L12.5 33.5 Z" fill="#7dd3fc"/>
+          <!-- Highlight blanco en el borde izquierdo/superior -->
+          <path d="M13.5 15.8 L28.5 24 L13.5 32.2 L13.5 29.5 L25 24 L13.5 18.5 Z" fill="#ffffff" opacity="0.5"/>
+        </svg>
+      </span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#home" data-page="home"   onclick="showPage('home',   this)">Inicio</a></li>
+      <li><a href="#tareas" data-page="tareas" onclick="showPage('tareas', this)">Tareas</a></li>
+      <li><a href="#perfil" data-page="perfil" onclick="showPage('perfil', this)">Perfil</a></li>
+      <li><a href="#info" data-page="info"   onclick="showPage('info',   this)">Información</a></li>
+      <li id="edit-controls" class="edit-controls" style="display:none;">
+        <button type="button" id="btn-toggle-edit" class="btn-edit" onclick="toggleEditMode()">✏️ Editar</button>
+        <button type="button" id="btn-save-edit" class="btn-save" onclick="saveEdits()" style="display:none;">💾 Confirmar guardado</button>
+      </li>
+      <li id="nav-login-item">
+        <a href="#" class="nav-login" onclick="showLoginScreen(); return false;">Iniciar sesión</a>
+      </li>
+      <li id="nav-logout-item" style="display:none;">
+        <a href="#" class="nav-logout" onclick="logout(); return false;">Cerrar sesión</a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- ============================================================
+       PÁGINA: INICIO
+  ============================================================ -->
+  <section id="home" class="page active">
+    <div class="home-wrapper">
+      <div class="hero-card">
+
+        <div class="hero-brand">
+          <svg class="hero-hex" viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   style="stop-color:#e11d48"/>
+                <stop offset="100%" style="stop-color:#a855f7"/>
+              </linearGradient>
+            </defs>
+            <polygon points="50,3 95,27 95,88 50,112 5,88 5,27"
+                     fill="url(#hexGrad)" stroke="#ffffff" stroke-width="1.5"/>
+            <path d="M38,75 Q40,55 50,45 Q52,58 58,50 Q65,38 50,30
+                     Q48,42 42,48 Q36,54 38,75Z"
+                  fill="#f1e9ff" opacity="0.9"/>
+            <path d="M50,75 Q52,60 56,52 Q62,40 52,32
+                     Q53,48 48,56 Q44,63 50,75Z"
+                  fill="#f1e9ff" opacity="0.6"/>
+          </svg>
+
+          <div class="upla-text-block">
+            <div class="upla-title">UPLA</div>
+            <div class="upla-sub">Universidad Peruana Los Andes</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h1 class="hero-title" data-editable="hero-title">Mi Portafolio de Trabajos</h1>
+        <p class="hero-desc" data-editable="hero-desc">
+          Un portafolio inspirado en Hololive Justice: cada unidad del curso
+          lleva la energía de un talent distinto, y mi perfil está bajo la
+          protección de la Knight of Justice, Hololive Justice.
+        </p>
+
+        <div class="oshi-row">
+          <span class="oshi-badge elizabeth">🔥 Unidad I — Elizabeth Rose Bloodflame</span>
+          <span class="oshi-badge gigi">🧸 Unidad II — Gigi Murin</span>
+          <span class="oshi-badge cecilia">🌿 Unidad III — Cecilia Immergreen</span>
+          <span class="oshi-badge raora">🐾 Unidad IV — Raora Panthera</span>
+          <span class="oshi-badge justice">⚖️ Perfil — Hololive Justice</span>
+        </div>
+
+        <div class="hero-buttons">
+          <button class="btn-primary"
+                  onclick="showPage('tareas', document.querySelector('[data-page=tareas]'))">
+            Ver Avances
+          </button>
+          <button class="btn-ghost"
+                  onclick="showPage('perfil', document.querySelector('[data-page=perfil]'))">
+            Ver Perfil
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PÁGINA: TAREAS
+  ============================================================ -->
+  <section id="tareas" class="page">
+    <div class="tareas-wrapper">
+
+      <!-- Unidad I — Elizabeth Rose Bloodflame -->
+      <div class="unit-section unit-elizabeth">
+        <div class="unit-header">
+          <span class="unit-icon">🔥</span>
+          <span class="unit-title" data-editable="unit1-title">UNIDAD I: Fundamentos de Programación Orientada a Objetos</span>
+        </div>
+        <p class="unit-talent" data-editable="unit1-talent">Temática: Elizabeth Rose Bloodflame — archivando las bases de POO</p>
+        <div class="weeks-grid">
+          <a href="pages/semana1.html" class="week-card">Semana 1</a>
+          <a href="pages/semana2.html" class="week-card">Semana 2</a>
+          <a href="pages/semana3.html" class="week-card">Semana 3</a>
+          <a href="pages/semana4.html" class="week-card">Semana 4</a>
+        </div>
+      </div>
+
+      <!-- Unidad II — Gigi Murin -->
+      <div class="unit-section unit-gigi">
+        <div class="unit-header">
+          <span class="unit-icon">🧸</span>
+          <span class="unit-title" data-editable="unit2-title">UNIDAD II: Componentes de una Aplicación</span>
+        </div>
+        <p class="unit-talent" data-editable="unit2-talent">Temática: Gigi Murin — joyas en cada componente</p>
+        <div class="weeks-grid">
+          <a href="pages/semana5.html" class="week-card">Semana 5</a>
+          <a href="pages/semana6.html" class="week-card">Semana 6</a>
+          <a href="pages/semana7.html" class="week-card">Semana 7</a>
+          <a href="pages/semana8.html" class="week-card">Semana 8</a>
+        </div>
+      </div>
+
+      <!-- Unidad III — Cecilia Immergreen -->
+      <div class="unit-section unit-cecilia">
+        <div class="unit-header">
+          <span class="unit-icon">🌿</span>
+          <span class="unit-title" data-editable="unit3-title">UNIDAD III: Desarrollo de Aplicaciones Web</span>
+        </div>
+        <p class="unit-talent" data-editable="unit3-talent">Temática: Cecilia Immergreen — melodía oscura en cada práctica</p>
+        <div class="weeks-grid">
+          <a href="pages/semana9.html" class="week-card">Semana 9</a>
+          <a href="pages/semana10.html" class="week-card">Semana 10</a>
+          <a href="pages/semana11.html" class="week-card">Semana 11</a>
+          <a href="pages/semana12.html" class="week-card">Semana 12</a>
+        </div>
+      </div>
+
+      <!-- Unidad IV — Raora Panthera -->
+      <div class="unit-section unit-raora">
+        <div class="unit-header">
+          <span class="unit-icon">🐾</span>
+          <span class="unit-title" data-editable="unit4-title">UNIDAD IV: Gestión y Cierre del Proyecto</span>
+        </div>
+        <p class="unit-talent" data-editable="unit4-talent">Temática: Raora Panthera — caos fluffy al cierre del proyecto</p>
+        <div class="weeks-grid">
+          <a href="pages/semana13.html" class="week-card">Semana 13</a>
+          <a href="pages/semana14.html" class="week-card">Semana 14</a>
+          <a href="pages/semana15.html" class="week-card">Semana 15</a>
+          <a href="pages/semana16.html" class="week-card">Semana 16</a>
+        </div>
+      </div>
+
+      <div class="back-center">
+        <a class="back-link"
+           onclick="showPage('home', document.querySelector('[data-page=home]'))">
+          ← Volver al Inicio
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PÁGINA: PERFIL — Tema Hololive Justice
+  ============================================================ -->
+  <section id="perfil" class="page">
+    <div class="perfil-wrapper">
+      <div class="profile-card">
+
+        <div class="profile-avatar-ring">
+          <div class="profile-avatar-inner">
+            <img src="img/avatar.jpg" alt="Adrian Alexis Rafael Palomino" class="profile-avatar-img" />
+          </div>
+        </div>
+
+        <div class="profile-name" data-editable="profile-name">
+          <span class="highlighted">Adrian Alexis</span> Rafael Palomino
+        </div>
+        <div class="profile-role" data-editable="profile-role">Estudiante de Ingeniería — UPLA</div>
+        <div class="profile-oshi-tag">✦ Inspirado en Hololive Justice</div>
+
+        <div class="divider"></div>
+
+        <p class="profile-bio" data-editable="profile-bio">
+          Bienvenido a mi perfil. Soy estudiante de la Facultad de Ingeniería de la
+          Universidad Peruana Los Andes y en este portafolio presento mis avances
+          técnicos en la asignatura
+          <strong>TALLER DE DESARROLLO DE APLICACIONES</strong>.
+          Cada unidad del curso está inspirada en un talent de Hololive Justice,
+          y este perfil descansa bajo el espíritu de Justice mientras
+          fortalezco mis habilidades en el ciclo de vida del software,
+          el diseño de interfaces y la gestión profesional de proyectos con Git y GitHub.
+        </p>
+
+        <div class="profile-back">
+          <a class="back-link"
+             onclick="showPage('home', document.querySelector('[data-page=home]'))">
+            ← Volver al Inicio
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PÁGINA: INFORMACIÓN
+  ============================================================ -->
+  <section id="info" class="page">
+    <div class="info-wrapper">
+      <div class="info-card">
+
+        <div class="info-title">Información del Portafolio</div>
+
+        <div class="info-row">
+          <span class="info-label">Estudiante</span>
+          <span class="info-value" data-editable="info-estudiante">Adrian Alexis Rafael Palomino</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Universidad</span>
+          <span class="info-value" data-editable="info-universidad">Universidad Peruana Los Andes</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Facultad</span>
+          <span class="info-value" data-editable="info-facultad">Ingeniería De Sistemas Y Computación</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Asignatura</span>
+          <span class="info-value" data-editable="info-asignatura">Taller de Desarrollo de Aplicaciones</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Temática</span>
+          <span class="info-value" data-editable="info-tematica">Hololive Justice (Elizabeth · Gigi · Cecilia · Raora)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Año Académico</span>
+          <span class="info-value" data-editable="info-anio">2026</span>
+        </div>
+
+        <div class="info-back">
+          <a class="back-link"
+             onclick="showPage('home', document.querySelector('[data-page=home]'))">
+            ← Volver al Inicio
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       ESTILOS inline para .page (ocultar/mostrar)
+  ============================================================ -->
+  <style>
+    .page         { display: none; }
+    .page.active  { display: block; width: 100%; }
+    #home.active,
+    #perfil.active,
+    #info.active  {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 68px);
+    }
+  </style>
+
+  <!-- JS -->
+  <script src="js/edit.js"></script>
+  <script src="js/nav.js"></script>
+
+</body>
+</html>
