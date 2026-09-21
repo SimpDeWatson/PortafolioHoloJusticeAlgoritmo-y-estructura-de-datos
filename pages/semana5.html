@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semana 5 - Adrian Alexis</title>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/tareas.css">
+
+  <style>
+    :root {
+      --w-bg-dark: #141006;
+      --w-bg-card: rgba(40,32,10,0.90);
+      --w-bg-card2: rgba(48,40,14,0.92);
+      --w-accent: #eab308;
+      --w-accent2: #fef9c3;
+      --w-accent3: #a16207;
+      --w-text: #fefce8;
+      --w-text-muted: #fde047;
+      --w-glow: 0 0 25px rgba(234,179,8,0.55);
+    }
+
+    body {
+      background-color: var(--w-bg-dark) !important;
+      background-image: url('../img/gigi-semana5.jpg') !important;
+      background-size: cover !important;
+      background-position: center center !important;
+      background-repeat: no-repeat !important;
+      background-attachment: fixed !important;
+      color: var(--w-text);
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(26, 19, 12, 0.72) 0%,
+        rgba(26, 19, 12, 0.78) 40%,
+        rgba(26, 19, 12, 0.85) 100%
+      );
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    nav, .tareas-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    nav { border-bottom: 1px solid color-mix(in srgb, var(--w-accent) 45%, transparent); }
+    .nav-links a.active { color: var(--w-accent) !important; }
+    .back-link { color: var(--w-accent) !important; }
+    .back-link:hover { color: var(--w-accent3) !important; }
+
+    .semana-header { text-align: center; margin-bottom: 2.6rem; }
+    .semana-icon {
+      font-size: 3.6rem;
+      margin-bottom: 0.8rem;
+      display: block;
+      filter: drop-shadow(0 0 18px var(--w-accent));
+    }
+    .semana-title {
+      font-family: var(--font-head);
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--w-accent);
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+    }
+    .semana-subtitle {
+      color: var(--w-text-muted);
+      font-size: 1.05rem;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .semana-talent-tag {
+      display: inline-block;
+      margin-top: 0.9rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--w-accent);
+      color: var(--w-accent);
+      font-family: var(--font-head);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: color-mix(in srgb, var(--w-accent) 14%, transparent);
+      color: var(--w-accent);
+      padding: 0.9rem 2rem;
+      border-radius: 999px;
+      border: 2px solid var(--w-accent);
+      text-decoration: none;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 1.8rem 0;
+      transition: all 0.35s;
+    }
+    .github-link:hover {
+      background: color-mix(in srgb, var(--w-accent3) 25%, transparent);
+      border-color: var(--w-accent3);
+      color: var(--w-accent3);
+    }
+
+    .pdf-section {
+      background: rgba(54, 40, 24, 0.92);
+      border: 1px solid color-mix(in srgb, var(--w-accent) 35%, transparent);
+      border-radius: 14px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    .pdf-title {
+      color: var(--w-accent2);
+      margin-bottom: 1.1rem;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    iframe { background: white; }
+
+    .coming-soon {
+      background: rgba(41, 30, 18, 0.90);
+      border: 2px dashed var(--w-accent);
+      border-radius: 16px;
+      padding: 3.2rem 2rem;
+      text-align: center;
+      color: var(--w-text-muted);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="../index.html#home" class="nav-brand">
+      Adrian Alexis — Holofolio UPLA
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html#home">Inicio</a></li>
+      <li><a href="../index.html#tareas" class="active">Tareas</a></li>
+      <li><a href="../index.html#perfil">Perfil</a></li>
+      <li><a href="../index.html#info">Información</a></li>
+      <li id="edit-controls" class="edit-controls" style="display:none;">
+        <button type="button" id="btn-toggle-edit" class="btn-edit" onclick="toggleEditMode()">✏️ Editar</button>
+        <button type="button" id="btn-save-edit" class="btn-save" onclick="saveEdits()" style="display:none;">💾 Confirmar guardado</button>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="tareas-wrapper">
+    <div class="semana-header">
+      <span class="semana-icon">🧸</span>
+      <h1 class="semana-title" data-editable="s5-title">Semana 5</h1>
+      <p class="semana-subtitle" data-editable="s5-unit">UNIDAD II: Pilas, Colas y Recursividad</p>
+      <p class="semana-subtitle" data-editable="s5-tema">Tema de la semana: Pilas — TDA, representación, operaciones y aplicaciones</p>
+      <span class="semana-talent-tag" data-editable="s5-talent">🧸 Temática: Gigi Murin</span>
+    </div>
+
+    <div style="text-align:center;">
+      <a href="https://github.com/SimpDeWatson/PortafolioHoloJusticeAlgoritmo-y-estructura-de-datos/tree/main/pages/Semana5" target="_blank" class="github-link">
+        🌐 Ver carpeta en GitHub
+      </a>
+    </div>
+
+    <div id="week-files-root" data-week="semana5">
+      <!-- Subida: solo usuario logueado -->
+      <div class="files-upload-panel" style="display:none;"></div>
+
+      <div class="files-empty-hint">
+        📂 Aún no hay archivos en esta semana en GitHub.<br><br>
+        Si iniciaste sesión, pulsa <strong>Subir en GitHub</strong>, sube el archivo en la carpeta
+        <strong>Semana5</strong> y luego <strong>Actualizar lista</strong>.
+      </div>
+
+      <div class="files-gallery"></div>
+    </div>
+
+    <div style="text-align: center; margin-top: 3.5rem;">
+      <a href="../index.html#tareas" class="back-link">← Volver a Tareas</a>
+    </div>
+  </div>
+
+  <script src="../js/edit.js"></script>
+  <script src="../js/files.js"></script>
+</body>
+</html>
