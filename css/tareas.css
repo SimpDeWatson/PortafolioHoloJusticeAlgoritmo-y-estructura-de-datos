@@ -1,0 +1,117 @@
+/* =========================================
+   tareas.css — Página Tareas
+   Cada unidad lleva el acento de color de su talent
+   Fondo: grupo Hololive Advent (cerezos)
+   ========================================= */
+
+/* Fondo a pantalla completa */
+#tareas {
+  position: relative;
+  min-height: calc(100vh - 68px);
+  background-color: #0a0814;
+  background-image: url('../img/bg-tareas.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Capa oscura semitransparente para que la imagen se vea opaca
+   y el contenido sea legible */
+#tareas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 8, 20, 0.72) 0%,
+    rgba(10, 8, 20, 0.80) 45%,
+    rgba(10, 8, 20, 0.88) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.tareas-wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.unit-section {
+  margin-bottom: 3.2rem;
+  animation: fadeIn 0.6s ease;
+  border-left: 4px solid var(--unit-color, var(--accent));
+  padding-left: 1.4rem;
+}
+
+.unit-header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.unit-icon {
+  font-size: 2.1rem;
+}
+
+.unit-title {
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--unit-color, var(--text));
+  letter-spacing: 0.5px;
+}
+
+.unit-talent {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-style: italic;
+  margin-bottom: 1.2rem;
+}
+
+
+.unit-shiori   { --unit-color: #8b5cf6; }
+.unit-bijou    { --unit-color: #22d3ee; }
+.unit-nerissa  { --unit-color: #6366f1; }
+.unit-fuwamoco { --unit-color: #ec4899; }
+
+.weeks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.1rem;
+}
+
+.week-card {
+  background: rgba(15, 20, 40, 0.82);
+  border: 2px solid color-mix(in srgb, var(--unit-color, var(--accent)) 45%, transparent);
+  border-radius: 14px;
+  padding: 1.4rem 1.1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.35s;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+}
+
+.week-card:hover {
+  border-color: var(--unit-color, var(--accent));
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-6px);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--unit-color, var(--accent)) 55%, transparent);
+  color: var(--unit-color, var(--accent2));
+}
+
+/* Acentos por unidad, aplicados en index.html vía clases */
+.back-center {
+  text-align: center;
+  margin-top: 1rem;
+}
